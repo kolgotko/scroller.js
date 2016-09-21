@@ -78,7 +78,7 @@ Scroller.prototype.getOffset = function () {
 	var ebcr = this._elem.getBoundingClientRect();
 	var cbcr = this._container.getBoundingClientRect();
 
-	var containerOffset = scroll.y + cbcr.y;
+	var containerOffset = scroll.y + cbcr.top;
 
 	return (this.getViewport().y / 2) - (ebcr.height / 2) - (containerOffset);
 
