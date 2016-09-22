@@ -1,7 +1,8 @@
-var Scroller = function (elem) {
+var Scroller = function (elem, align) {
 
 	this._elem = elem;
 	this._container = elem.parentNode;
+	this._align = align;
 
 	if(!this._elem.style.position)
 		this._elem.style.position = 'absolute';
@@ -36,7 +37,7 @@ Scroller.prototype.getViewport = function () {
 }
 
 /**
- * Вернёт позицию прокрутки
+ * Вернёт позицию прокрутки.
  */
 Scroller.prototype.getScroll = function () {
 
@@ -44,6 +45,16 @@ Scroller.prototype.getScroll = function () {
 		x: window.pageXOffset,
 		y: window.pageYOffset,
 	};
+
+}
+
+/**
+ *  Устанавливает выравнивание элемента относительно области просмотра.
+ */
+Scroller.prototype.setAlign = function (align) {
+
+	this._align = align;
+	return this;
 
 }
 
@@ -70,7 +81,7 @@ Scroller.prototype.position = function () {
 }
 
 /**
- *  Возвращает смещение элемента по центру в пикселях
+ *  Возвращает смещение элемента в пикселях
  */
 Scroller.prototype.getOffset = function () {
 
@@ -80,6 +91,33 @@ Scroller.prototype.getOffset = function () {
 
 	var containerOffset = scroll.y + cbcr.top;
 
-	return (this.getViewport().y / 2) - (ebcr.height / 2) - (containerOffset);
+	var offset = 0;
+
+	switch (this._align) {
+
+		case 'start':
+
+			offset = 0;
+			break;
+
+		case 'middle':
+
+			offset = (this.getViewport().y / 2) - (ebcr.height / 2);
+			break;
+
+		case 'end':
+
+			offset = this.getViewport().y - ebcr.height;
+			break;
+
+		default:
+
+			offset = (this.getViewport().y / 2) - (ebcr.height / 2);
+			break;
+
+	}
+
+	offset -= containerOffset;
+	return offset;
 
 }
