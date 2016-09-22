@@ -2,7 +2,7 @@ var Scroller = function (elem, align) {
 
 	this._elem = elem;
 	this._container = elem.parentNode;
-	this._align = align;
+	this.setAlign(align);
 
 	if(!this._elem.style.position)
 		this._elem.style.position = 'absolute';
@@ -23,6 +23,11 @@ var Scroller = function (elem, align) {
 	this.position();
 
 }
+
+Scroller.prototype._elem = null;
+Scroller.prototype._container = null;
+Scroller.prototype._align = 'start';
+Scroller.prototype._offset = ' + 0';
 
 /**
  *  Вернёт область просмотра окна браузера
@@ -53,7 +58,9 @@ Scroller.prototype.getScroll = function () {
  */
 Scroller.prototype.setAlign = function (align) {
 
-	this._align = align;
+	var matches = align.match(/^(\w+)(\s*[\+\-]\s*\d+)?$/);
+	if (matches && matches[1]) this._align = matches[1];
+	if (matches && matches[2]) this._offset = matches[2];
 	return this;
 
 }
@@ -112,12 +119,14 @@ Scroller.prototype.getOffset = function () {
 
 		default:
 
-			offset = (this.getViewport().y / 2) - (ebcr.height / 2);
+			offset = 0;
 			break;
 
 	}
 
+	offset = new Function('return ' + offset + this._offset)();
 	offset -= containerOffset;
+
 	return offset;
 
 }
