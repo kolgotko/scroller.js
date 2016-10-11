@@ -1,0 +1,29 @@
+{
+  "name": "scroller.js",
+  "version": "1.0.0",
+  "description": "simple stiky block",
+  "main": "scroller.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kolgotko/scroller.js.git"
+  },
+  "keywords": [
+    "stiky"
+  ],
+  "author": "kolgotko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kolgotko/scroller.js/issues"
+  },
+  "homepage": "https://github.com/kolgotko/scroller.js#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-jsmin": "^0.1.5",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2"
+  }
+}
